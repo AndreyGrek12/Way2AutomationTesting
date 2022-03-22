@@ -1,0 +1,14 @@
+.allure/
+
+# Intellij
+.idea/
+*.iml
+*.iws
+
+# Mac
+.DS_Store
+chromedriver
+
+# Maven
+log/
+target/
