@@ -1,5 +1,6 @@
 package pages;
 
+import helpers.Waiters;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -15,6 +16,9 @@ public class AuthorizationPage {
     @FindBy (css = "#password")
     private WebElement passwordField;
 
+    @FindBy (css = "#formly_1_input_username_0")
+    private WebElement descriptionField;
+
     @FindBy (css = ".btn")
     private WebElement loginButton;
 
@@ -24,6 +28,7 @@ public class AuthorizationPage {
     }
 
     public AuthorizationPage insertUsername(String username) {
+        Waiters.waitForVisibility(10,driver,usernameField);
         usernameField.sendKeys(username);
         return this;
     }
@@ -33,9 +38,14 @@ public class AuthorizationPage {
         return this;
     }
 
-    public AuthorizationPage pressLoginButton() {
-        loginButton.click();
+    public AuthorizationPage insertDescription(String description) {
+        descriptionField.sendKeys(description);
         return this;
+    }
+
+    public HomePage pressLoginButton() {
+        loginButton.click();
+        return new HomePage(driver);
     }
 
 }
