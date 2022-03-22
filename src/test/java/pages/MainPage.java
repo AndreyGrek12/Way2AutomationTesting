@@ -48,29 +48,29 @@ public class MainPage {
         PageFactory.initElements(driver, this);
     }
 
-    public WebElement getHead(){
+    public MainPage headShouldBeVisible(){
         Waiters.waitForVisibility(10,driver, head);
-        return head;
+        return this;
     }
 
-    public WebElement getHorizontalMenu() {
+    public MainPage horizontalMenuShouldBeVisible() {
         Waiters.waitForVisibility(10,driver, horizontalMenu);
-        return horizontalMenu;
+        return this;
     }
 
-    public WebElement getCertifications() {
+    public MainPage certificationsShouldBeVisible() {
         Waiters.waitForVisibility(10,driver, certifications);
-        return certifications;
+        return this;
     }
 
-    public WebElement getCourses() {
+    public MainPage coursesShouldBeVisible() {
         Waiters.waitForVisibility(10,driver, courses);
-        return courses;
+        return this;
     }
 
-    public WebElement getFooter() {
+    public MainPage footerShouldBeVisible() {
         Waiters.waitForVisibility(10,driver, footer);
-        return footer;
+        return this;
     }
 
     public WebElement getResources() {
@@ -78,20 +78,23 @@ public class MainPage {
         return resources;
     }
 
-    public void choosePracticeSiteOne () {
+    public PracticeSiteOnePage choosePracticeSiteOne () {
         practiceSiteOneButton.click();
+        return new PracticeSiteOnePage(driver);
     }
 
-    public void choosePracticeSiteTwo () {
+    public PracticeSiteTwoPage choosePracticeSiteTwo () {
         practiceSiteTwoButton.click();
+        return new PracticeSiteTwoPage(driver);
     }
 
     public WebElement getNextCourseButton(){
         return nextCourseButton;
     }
 
-    public WebElement getCourseBanner() {
-        return courseBanner;
+    public MainPage courseBannerShouldBeVisible() {
+        Waiters.waitForVisibility(10,driver, courseBanner);
+        return this;
     }
 
 }

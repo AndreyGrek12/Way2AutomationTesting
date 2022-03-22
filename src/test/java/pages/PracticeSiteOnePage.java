@@ -1,5 +1,6 @@
 package pages;
 
+import helpers.Waiters;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -17,7 +18,8 @@ public class PracticeSiteOnePage {
         PageFactory.initElements(driver, this);
     }
 
-    public WebElement getRegistrationForm() {
-        return registrationForm;
+    public PracticeSiteOnePage registrationFormShouldBeVisible() {
+        Waiters.waitForVisibility(10,driver, registrationForm);
+        return this;
     }
 }

@@ -18,7 +18,8 @@ public class PracticeSiteTwoPage {
         PageFactory.initElements(driver, this);
     }
 
-    public void openAuthorizationScreen () {
+    public AuthorizationPage openAuthorizationScreen () {
         authorizationBanner.click();
+        return new AuthorizationPage(driver);
     }
 }
