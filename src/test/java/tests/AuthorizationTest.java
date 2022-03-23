@@ -33,10 +33,10 @@ public class AuthorizationTest extends BaseTest{
         authorizationPage.insertUsername(username)
                 .insertPassword(password)
                 .insertDescription(description);
-        if (!username.equals("") && !password.equals("") && !description.equals("")) {
+        if (!username.isEmpty() && !password.isEmpty() && !description.isEmpty()) {
             authorizationPage.pressLoginButton();
             if (username.equals("angular") && password.equals("password") && description.length()>2) {
-                            homePage.getAuthorizationText();
+                Assert.assertEquals(homePage.getAuthorizationText(),"You're logged in!!");
             } else {
                     authorizationPage.checkAuthorizationFail();
             }
