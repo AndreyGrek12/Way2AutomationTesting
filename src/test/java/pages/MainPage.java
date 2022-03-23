@@ -1,6 +1,7 @@
 package pages;
 
 import helpers.Waiters;
+import io.qameta.allure.Step;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -48,26 +49,31 @@ public class MainPage {
         PageFactory.initElements(driver, this);
     }
 
+    @Step("Проверка видимости хедера")
     public MainPage headShouldBeVisible(){
         Waiters.waitForVisibility(10,driver, head);
         return this;
     }
 
+    @Step ("Проверка видимости горизнотального меню")
     public MainPage horizontalMenuShouldBeVisible() {
         Waiters.waitForVisibility(10,driver, horizontalMenu);
         return this;
     }
 
+    @Step ("Проверка видимости сертификатов")
     public MainPage certificationsShouldBeVisible() {
         Waiters.waitForVisibility(10,driver, certifications);
         return this;
     }
 
+    @Step ("Проверка видимости курсов")
     public MainPage coursesShouldBeVisible() {
         Waiters.waitForVisibility(10,driver, courses);
         return this;
     }
 
+    @Step ("Проверка видимости футера")
     public MainPage footerShouldBeVisible() {
         Waiters.waitForVisibility(10,driver, footer);
         return this;
@@ -78,11 +84,13 @@ public class MainPage {
         return resources;
     }
 
+    @Step ("Переход на страницу Practice Site 1")
     public PracticeSiteOnePage choosePracticeSiteOne () {
         practiceSiteOneButton.click();
         return new PracticeSiteOnePage(driver);
     }
 
+    @Step ("Переход на страницу Practice Site 2")
     public PracticeSiteTwoPage choosePracticeSiteTwo () {
         practiceSiteTwoButton.click();
         return new PracticeSiteTwoPage(driver);
@@ -92,6 +100,7 @@ public class MainPage {
         return nextCourseButton;
     }
 
+    @Step ("Проверка видимости баннера курса")
     public MainPage courseBannerShouldBeVisible() {
         Waiters.waitForVisibility(10,driver, courseBanner);
         return this;

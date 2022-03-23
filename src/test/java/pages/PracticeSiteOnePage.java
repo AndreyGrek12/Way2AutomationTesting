@@ -1,6 +1,7 @@
 package pages;
 
 import helpers.Waiters;
+import io.qameta.allure.Step;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -18,6 +19,7 @@ public class PracticeSiteOnePage {
         PageFactory.initElements(driver, this);
     }
 
+    @Step("Проверка видимости регистрационной формы")
     public PracticeSiteOnePage registrationFormShouldBeVisible() {
         Waiters.waitForVisibility(10,driver, registrationForm);
         return this;

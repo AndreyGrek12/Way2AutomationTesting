@@ -1,5 +1,6 @@
 package pages;
 
+import io.qameta.allure.Step;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -18,6 +19,7 @@ public class PracticeSiteTwoPage {
         PageFactory.initElements(driver, this);
     }
 
+    @Step("Открытие экрана авторизации")
     public AuthorizationPage openAuthorizationScreen () {
         authorizationBanner.click();
         return new AuthorizationPage(driver);

@@ -1,5 +1,6 @@
 package tests;
 
+import io.qameta.allure.*;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import pages.AuthorizationPage;
@@ -12,7 +13,10 @@ import static helpers.WindowsUtils.*;
 
 class SiteTest extends BaseTest {
 
+    @Epic("Главная страница")
+    @Feature("Загрузка главной страницы")
     @Test
+    @Severity(SeverityLevel.BLOCKER)
     public void pageLoadTest(){
         MainPage mainPage = new MainPage(driver);
 
@@ -25,7 +29,10 @@ class SiteTest extends BaseTest {
                 .footerShouldBeVisible();
     }
 
+    @Epic("Главная страница")
+    @Feature("Хедер остается вверху про скроллинге")
     @Test
+    @Severity(SeverityLevel.MINOR)
     public void headerAfterScrollingTest() {
         MainPage mainPage = new MainPage(driver);
 
@@ -33,7 +40,10 @@ class SiteTest extends BaseTest {
         mainPage.horizontalMenuShouldBeVisible();
     }
 
+    @Epic("Главная страница")
+    @Feature("Кнопки в меню работают")
     @Test
+    @Severity(SeverityLevel.BLOCKER)
     public void menuButtonWorkingTest(){
         MainPage mainPage = new MainPage(driver);
 
@@ -42,7 +52,11 @@ class SiteTest extends BaseTest {
                 .registrationFormShouldBeVisible();
     }
 
+    @Epic("Авторизация")
+    @Feature("Проверка работы авторизации")
+    @Story("Переход к экрану авторизации с главной страницы")
     @Test
+    @Severity(SeverityLevel.BLOCKER)
     public void authorizationTest() {
         MainPage mainPage = new MainPage(driver);
         AuthorizationPage authorizationPage = new AuthorizationPage(driver);

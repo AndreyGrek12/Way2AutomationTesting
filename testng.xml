@@ -4,6 +4,7 @@
     <test verbose="2" preserve-order="true" name="/Users/macbook/IdeaProjects/Way2AutomationTesitng">
         <classes>
                 <class name="tests.SiteTest"/>
+                <class name="tests.AuthorizationTest"></class>
         </classes>
     </test>
 </suite>
