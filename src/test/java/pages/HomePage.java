@@ -10,16 +10,16 @@ public class HomePage {
 
     private final WebDriver driver;
 
-    @FindBy (xpath = "//p[text()=\"You're logged in!!\"]")
-    private WebElement successAuthorizationText;
+    @FindBy (css = ".jumbotron")
+    private WebElement homePage;
 
     public HomePage(WebDriver driver) {
         this.driver = driver;
         PageFactory.initElements(driver, this);
     }
 
-    public String getAuthorizationText() {
-        Waiters.waitForVisibility(10,driver, successAuthorizationText);
-        return successAuthorizationText.getText();
+    public HomePage homePageShouldBeVisible() {
+        Waiters.waitForVisibility(10,driver, homePage);
+        return this;
     }
 }

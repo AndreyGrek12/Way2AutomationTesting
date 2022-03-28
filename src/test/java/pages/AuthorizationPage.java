@@ -24,7 +24,7 @@ public class AuthorizationPage {
     private WebElement loginButton;
 
     @FindBy (xpath = "//div[@ng-if='Auth.error']")
-    private WebElement loginErrorText;
+    private WebElement failedLoginElement;
 
     public AuthorizationPage(WebDriver driver) {
         this.driver = driver;
@@ -57,8 +57,8 @@ public class AuthorizationPage {
     }
 
     @Step ("Проверка видимости поля ошибки авторизации")
-    public AuthorizationPage checkAuthorizationFail () {
-        Waiters.waitForVisibility(10,driver,loginErrorText);
+    public AuthorizationPage failedLoginElementShouldBeVisible () {
+        Waiters.waitForVisibility(10,driver,failedLoginElement);
         return this;
     }
 

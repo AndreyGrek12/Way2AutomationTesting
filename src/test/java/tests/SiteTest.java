@@ -1,7 +1,7 @@
 package tests;
 
 import io.qameta.allure.*;
-import org.testng.Assert;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import pages.AuthorizationPage;
 import pages.HomePage;
@@ -13,13 +13,21 @@ import static helpers.WindowsUtils.*;
 
 class SiteTest extends BaseTest {
 
+    public MainPage mainPage;
+
+
+    @BeforeMethod
+    public void initializingMainPage () {
+        mainPage = new MainPage(driver);
+    }
+
+
     @Epic("Главная страница")
-    @Feature("Загрузка главной страницы")
+    @Feature("Основные элементы главной страницы")
+    @Story("Основные элементы главной страницы загружаются")
     @Test
     @Severity(SeverityLevel.BLOCKER)
     public void pageLoadTest(){
-        MainPage mainPage = new MainPage(driver);
-
         mainPage.headShouldBeVisible()
                 .horizontalMenuShouldBeVisible()
                 .certificationsShouldBeVisible()
@@ -30,23 +38,21 @@ class SiteTest extends BaseTest {
     }
 
     @Epic("Главная страница")
-    @Feature("Хедер остается вверху про скроллинге")
+    @Feature("Основные элементы главной страницы")
+    @Story("Хедер остается вверху про скроллинге")
     @Test
     @Severity(SeverityLevel.MINOR)
     public void headerAfterScrollingTest() {
-        MainPage mainPage = new MainPage(driver);
-
         mouseover(driver,mainPage.getNextCourseButton());
         mainPage.horizontalMenuShouldBeVisible();
     }
 
     @Epic("Главная страница")
-    @Feature("Кнопки в меню работают")
+    @Feature("Основные элементы главной страницы")
+    @Story("Кнопки в меню работают")
     @Test
     @Severity(SeverityLevel.BLOCKER)
     public void menuButtonWorkingTest(){
-        MainPage mainPage = new MainPage(driver);
-
         mouseover(driver,mainPage.getResources());
         mainPage.choosePracticeSiteOne()
                 .registrationFormShouldBeVisible();
@@ -58,9 +64,7 @@ class SiteTest extends BaseTest {
     @Test
     @Severity(SeverityLevel.BLOCKER)
     public void authorizationTest() {
-        MainPage mainPage = new MainPage(driver);
         AuthorizationPage authorizationPage = new AuthorizationPage(driver);
-        HomePage homePage = new HomePage(driver);
 
         mouseover(driver,mainPage.getResources());
         mainPage.choosePracticeSiteTwo()
@@ -69,8 +73,8 @@ class SiteTest extends BaseTest {
         authorizationPage.insertUsername("angular")
                 .insertPassword("password")
                 .insertDescription("description")
-                .pressLoginButton();
-        Assert.assertEquals(homePage.getAuthorizationText(),"You're logged in!!");
+                .pressLoginButton()
+                .homePageShouldBeVisible();
         driver.close();
         focusTab(driver, 1);
     }

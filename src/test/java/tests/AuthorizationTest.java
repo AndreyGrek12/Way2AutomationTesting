@@ -1,5 +1,6 @@
 package tests;
 
+import helpers.Data;
 import io.qameta.allure.*;
 import org.testng.Assert;
 import org.testng.annotations.DataProvider;
@@ -26,7 +27,7 @@ public class AuthorizationTest extends BaseTest{
     @Test(dataProvider = "authorization")
     @Severity(SeverityLevel.BLOCKER)
     public void authorizationTest (String username, String password, String description) {
-        driver.get("https://www.way2automation.com/angularjs-protractor/registeration/#/login");
+        driver.get(Data.getProperty("loginURL"));
         AuthorizationPage authorizationPage = new AuthorizationPage(driver);
         HomePage homePage = new HomePage(driver);
 
@@ -36,9 +37,9 @@ public class AuthorizationTest extends BaseTest{
         if (!username.isEmpty() && !password.isEmpty() && !description.isEmpty()) {
             authorizationPage.pressLoginButton();
             if (username.equals("angular") && password.equals("password") && description.length()>2) {
-                Assert.assertEquals(homePage.getAuthorizationText(),"You're logged in!!");
+                homePage.homePageShouldBeVisible();
             } else {
-                    authorizationPage.checkAuthorizationFail();
+                    authorizationPage.failedLoginElementShouldBeVisible();
             }
         } else {
             Assert.assertFalse(authorizationPage.getLoginButton().isEnabled());

@@ -96,7 +96,7 @@ public class MainPage {
         return new PracticeSiteTwoPage(driver);
     }
 
-    public WebElement getNextCourseButton(){
+    public WebElement getNextCourseButton() {
         return nextCourseButton;
     }
 
