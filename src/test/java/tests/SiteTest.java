@@ -4,7 +4,6 @@ import io.qameta.allure.*;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import pages.AuthorizationPage;
-import pages.HomePage;
 import pages.MainPage;
 
 import static helpers.ActionHelpers.mouseover;
