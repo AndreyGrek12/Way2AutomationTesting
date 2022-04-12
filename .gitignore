@@ -7,7 +7,8 @@
 
 # Mac
 .DS_Store
-chromedriver
+
+Cookies.data
 
 # Maven
 log/
