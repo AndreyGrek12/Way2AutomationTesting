@@ -8,6 +8,9 @@ import org.testng.annotations.Test;
 import pages.AuthorizationPage;
 import pages.MainPage;
 
+import static helpers.ActionHelpers.mouseover;
+import static helpers.WindowsUtils.focusTab;
+
 @Listeners(TestListeners.class)
 
 public class FailedTest extends BaseTest {
@@ -21,9 +24,19 @@ public class FailedTest extends BaseTest {
 
     @Test
     public void failedTestTwo () {
+        MainPage mainPage = new MainPage(driver);
         AuthorizationPage authorizationPage = new AuthorizationPage(driver);
 
-        driver.get("https://www.way2automation.com/angularjs-protractor/registeration/#/login");
-        authorizationPage.pressLoginButton();
+        mouseover(driver,mainPage.getResources());
+        mainPage.choosePracticeSiteTwo()
+                .openAuthorizationScreen();
+        focusTab(driver,2);
+        authorizationPage.insertUsername("angular")
+                .insertPassword("password")
+                .insertDescription("description")
+                .pressLoginButton()
+                .assertVisibility();
+        driver.close();
+        focusTab(driver, 1);
     }
 }
