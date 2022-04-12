@@ -10,7 +10,7 @@ import pages.MainPage;
 
 @Listeners(TestListeners.class)
 
-public class FailedTests extends BaseTest {
+public class FailedTest extends BaseTest {
 
     @Test
     public void failedTestOne () {
