@@ -3,8 +3,7 @@ package tests;
 import helpers.Data;
 import io.qameta.allure.*;
 import org.testng.Assert;
-import org.testng.annotations.DataProvider;
-import org.testng.annotations.Test;
+import org.testng.annotations.*;
 import pages.AuthorizationPage;
 import pages.HomePage;
 
@@ -23,7 +22,7 @@ public class AuthorizationTest extends BaseTest{
 
     @Epic("Авторизация")
     @Feature("Тест авторизации")
-    @Story("")
+    @Story("Авторизация с разными данными")
     @Test(dataProvider = "authorization")
     @Severity(SeverityLevel.BLOCKER)
     public void authorizationTest (String username, String password, String description) {

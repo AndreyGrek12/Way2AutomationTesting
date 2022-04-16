@@ -27,31 +27,37 @@ public class CookieTestingMainPage {
     @FindBy (css = "[alt='Выход...']")
     private WebElement logoutButton;
 
+
     public CookieTestingMainPage(WebDriver driver) {
         this.driver = driver;
         PageFactory.initElements(driver, this);
     }
 
+    @Step ("Ввод имени пользователя")
     public CookieTestingMainPage enterUsername (String username) {
         usernameField.sendKeys(username);
         return this;
     }
 
+    @Step ("Ввод пароля")
     public CookieTestingMainPage enterPassword (String password) {
         passwordField.sendKeys(password);
         return this;
     }
 
+    @Step ("Нажатие кнопки логина")
     public CookieTestingMainPage pressLoginButton () {
         submitButton.click();
         return this;
     }
 
+    @Step ("Проверка видимости кнопки профиля")
     public CookieTestingMainPage profileButtonShouldBeVisible () {
-        Waiters.waitForVisibility(10,driver, profileButton);
+        Waiters.waitForVisibility(3,driver, profileButton);
         return this;
     }
 
+    @Step ("Нажатие кнопки деавторизации")
     public CookieTestingMainPage pressLogoutButton () {
         logoutButton.click();
         return this;

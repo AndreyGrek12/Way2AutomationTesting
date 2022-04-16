@@ -3,8 +3,7 @@ package tests;
 
 import helpers.TestListeners;
 import org.testng.Assert;
-import org.testng.annotations.Listeners;
-import org.testng.annotations.Test;
+import org.testng.annotations.*;
 import pages.AuthorizationPage;
 import pages.MainPage;
 
