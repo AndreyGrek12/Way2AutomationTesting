@@ -3,23 +3,19 @@ package tests;
 import io.qameta.allure.*;
 import org.testng.annotations.*;
 import pages.AuthorizationPage;
-
 import pages.MainPage;
-
 import static helpers.ActionHelpers.mouseover;
 import static helpers.WindowsUtils.*;
 
-
-class SiteTest extends BaseTest {
+public class SiteTest extends BaseTest{
 
     public MainPage mainPage;
 
-
     @BeforeMethod
-    public void initializingMainPage () {
+    public void initializingPageObjectAndOpenURL () {
         mainPage = new MainPage(driver);
+        driver.get("https://www.way2automation.com/");
     }
-
 
     @Epic("Главная страница")
     @Feature("Основные элементы главной страницы")
