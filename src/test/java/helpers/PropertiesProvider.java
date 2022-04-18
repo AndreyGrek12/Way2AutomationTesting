@@ -4,7 +4,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Properties;
 
-public class Data {
+public class PropertiesProvider {
 
     static private Properties property;
 

@@ -3,7 +3,7 @@
 <suite name="All Test Suite">
     <test verbose="2" preserve-order="true" name="/Users/macbook/IdeaProjects/Way2AutomationTesitng">
         <packages>
-            <package name="tests"/>
+            <package name="tests" />
         </packages>
     </test>
 </suite>

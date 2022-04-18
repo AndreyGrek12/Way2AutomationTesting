@@ -3,21 +3,22 @@ package tests;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.annotations.*;
+
 import java.time.Duration;
 
 public abstract class BaseTest {
+
     protected WebDriver driver;
 
     @BeforeClass
     public void installDriver() {
-        System.setProperty("webdriver.chrome.driver", "chromedriver");
+        System.setProperty("webdriver.chrome.driver", "src/test/resources/chromedriver.exe");
     }
 
     @BeforeMethod
     public void openChrome() {
         driver = new ChromeDriver();
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
-        driver.get("https://www.way2automation.com/");
         driver.manage().window().maximize();
     }
 
@@ -34,5 +35,4 @@ public abstract class BaseTest {
     public WebDriver getDriver () {
         return driver;
     }
-
 }

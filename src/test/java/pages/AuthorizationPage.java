@@ -65,5 +65,4 @@ public class AuthorizationPage {
     public WebElement getLoginButton () {
         return loginButton;
     }
-
 }

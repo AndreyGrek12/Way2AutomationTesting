@@ -20,12 +20,13 @@ public class HomePage {
         PageFactory.initElements(driver, this);
     }
 
+    @Step("Проверка видимости экрана успешной авторизации")
     public HomePage homePageShouldBeVisible() {
         Waiters.waitForVisibility(10,driver, homePage);
         return this;
     }
 
-    @Step ("Проверка видимости экрана успешной авторизации")
+    @Step("Провальная проверка видимости экрана успешной авторизации") //Для падения тестов
     public HomePage assertVisibility() {
         Assert.assertFalse(homePage.isDisplayed());
         return this;
