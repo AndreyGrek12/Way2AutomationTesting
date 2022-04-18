@@ -13,7 +13,6 @@ public class PracticeSiteTwoPage {
     @FindBy (xpath = "//h2[text()='Registration']")
     private WebElement authorizationBanner;
 
-
     public PracticeSiteTwoPage(WebDriver driver) {
         this.driver = driver;
         PageFactory.initElements(driver, this);

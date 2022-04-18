@@ -11,7 +11,6 @@ public class CookieTestingMainPage {
 
     private final WebDriver driver;
 
-
     @FindBy (css = "[colspan='2'] [name='login']")
     private WebElement usernameField;
 
@@ -24,9 +23,8 @@ public class CookieTestingMainPage {
     @FindBy (css = "[class='none'][href='/personal.php']")
     private WebElement profileButton;
 
-    @FindBy (css = "[alt='Выход...']")
+    @FindBy (css = "[href='/logout.php']")
     private WebElement logoutButton;
-
 
     public CookieTestingMainPage(WebDriver driver) {
         this.driver = driver;
@@ -62,5 +60,4 @@ public class CookieTestingMainPage {
         logoutButton.click();
         return this;
     }
-
 }

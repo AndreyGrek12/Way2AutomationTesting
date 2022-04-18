@@ -1,7 +1,6 @@
 package helpers;
 
 import org.openqa.selenium.WebDriver;
-
 import java.util.ArrayList;
 
 public class WindowsUtils {
@@ -10,5 +9,4 @@ public class WindowsUtils {
         ArrayList<String> tabs = new ArrayList<>(driver.getWindowHandles());
         driver.switchTo().window(tabs.get(tabNumber - 1));
     }
-
 }

@@ -7,6 +7,7 @@ import org.testng.annotations.*;
 import java.time.Duration;
 
 public abstract class BaseTest {
+
     protected WebDriver driver;
 
     @BeforeClass
@@ -18,7 +19,6 @@ public abstract class BaseTest {
     public void openChrome() {
         driver = new ChromeDriver();
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
-        driver.get("https://www.way2automation.com/");
         driver.manage().window().maximize();
     }
 

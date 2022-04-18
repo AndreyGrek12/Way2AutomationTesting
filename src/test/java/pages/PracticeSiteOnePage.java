@@ -69,5 +69,4 @@ public class PracticeSiteOnePage {
         Waiters.waitForVisibility(10, driver, successLoginText);
         return this;
     }
-
 }

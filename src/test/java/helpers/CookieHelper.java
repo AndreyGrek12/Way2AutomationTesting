@@ -2,7 +2,6 @@ package helpers;
 
 import org.openqa.selenium.Cookie;
 import org.openqa.selenium.WebDriver;
-
 import java.io.*;
 
 public class CookieHelper {
@@ -17,7 +16,6 @@ public class CookieHelper {
             ex.printStackTrace();
         }
     }
-
 
     public static void readCookie(WebDriver driver, String cookieName) {
         String key = null;

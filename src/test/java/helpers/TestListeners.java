@@ -6,12 +6,10 @@ import org.testng.ITestListener;
 import org.testng.ITestResult;
 import ru.yandex.qatools.ashot.AShot;
 import tests.BaseTest;
-
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-
 
 public class TestListeners implements ITestListener {
 
@@ -34,5 +32,4 @@ public class TestListeners implements ITestListener {
     private byte[] saveScreenshot(byte[] screenshot){
         return screenshot;
     }
-
 }

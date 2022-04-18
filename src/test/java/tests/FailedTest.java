@@ -1,12 +1,10 @@
 package tests;
 
-
 import helpers.TestListeners;
 import org.testng.Assert;
 import org.testng.annotations.*;
 import pages.AuthorizationPage;
 import pages.MainPage;
-
 import static helpers.ActionHelpers.mouseover;
 import static helpers.WindowsUtils.focusTab;
 
@@ -14,16 +12,21 @@ import static helpers.WindowsUtils.focusTab;
 
 public class FailedTest extends BaseTest {
 
+    public MainPage mainPage;
+
+    @BeforeMethod
+    public void initializingPageObjectAndOpenURL () {
+        mainPage = new MainPage(driver);
+        driver.get("https://www.way2automation.com/");
+    }
+
     @Test
     public void failedTestOne () {
-        MainPage mainPage = new MainPage(driver);
-
         Assert.assertFalse(mainPage.getResources().isDisplayed());
     }
 
     @Test
     public void failedTestTwo () {
-        MainPage mainPage = new MainPage(driver);
         AuthorizationPage authorizationPage = new AuthorizationPage(driver);
 
         mouseover(driver,mainPage.getResources());

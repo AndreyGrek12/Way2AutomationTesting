@@ -7,11 +7,9 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
-
 public class MainPage {
 
     private final WebDriver driver;
-
 
     @FindBy (css = ".elementor-icon-list-items.elementor-inline-items")
     private WebElement head;
@@ -42,7 +40,6 @@ public class MainPage {
 
     @FindBy (xpath = "//a[@href='https://www.way2automation.com/protractor-angularjs-practice-website.html']")
     private WebElement practiceSiteTwoButton;
-
 
     public MainPage(WebDriver driver) {
         this.driver = driver;
@@ -97,6 +94,7 @@ public class MainPage {
     }
 
     public WebElement getNextCourseButton() {
+        Waiters.waitForVisibility(10, driver, nextCourseButton);
         return nextCourseButton;
     }
 
@@ -105,5 +103,4 @@ public class MainPage {
         Waiters.waitForVisibility(10,driver, courseBanner);
         return this;
     }
-
 }
