@@ -70,7 +70,6 @@ public class PracticeSiteOnePage {
         return this;
     }
 
-    @Step("Нажатие на поле ввода логина")
     public WebElement getUsernameField () {
         return usernameField;
     }
