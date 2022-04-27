@@ -17,7 +17,7 @@ public class PracticeSiteOnePage {
     @FindBy (xpath = "//a[@href='#login']")
     private WebElement signInButton;
 
-    @FindBy (css = "#login [name='username']")
+    @FindBy (css = "[name='name']")
     private WebElement usernameField;
 
     @FindBy (css = "#login [name='password']")
@@ -68,5 +68,10 @@ public class PracticeSiteOnePage {
     public PracticeSiteOnePage successLoginTextShouldBeVisible () {
         Waiters.waitForVisibility(10, driver, successLoginText);
         return this;
+    }
+
+    @Step("Нажатие на поле ввода логина")
+    public WebElement getUsernameField () {
+        return usernameField;
     }
 }

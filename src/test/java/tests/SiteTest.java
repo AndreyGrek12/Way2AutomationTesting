@@ -1,9 +1,13 @@
 package tests;
 
+import helpers.JsHelper;
 import io.qameta.allure.*;
+import org.testng.Assert;
 import org.testng.annotations.*;
 import pages.AuthorizationPage;
 import pages.MainPage;
+import pages.PracticeSiteOnePage;
+
 import static helpers.ActionHelpers.mouseover;
 import static helpers.WindowsUtils.*;
 
@@ -72,5 +76,23 @@ public class SiteTest extends BaseTest{
                 .homePageShouldBeVisible();
         driver.close();
         focusTab(driver, 1);
+    }
+
+    @Test
+    public void JavascriptTest () {
+        PracticeSiteOnePage practiceSiteOnePage = new PracticeSiteOnePage(driver);
+
+        mouseover(driver,mainPage.getResources());
+        mainPage.choosePracticeSiteOne()
+                .getUsernameField()
+                .click();
+        JsHelper.blurElement(driver, practiceSiteOnePage.getUsernameField());
+        Assert.assertNotEquals(driver.switchTo().activeElement(), practiceSiteOnePage.getUsernameField(),
+                "Фокусирование не исчезло");
+    }
+
+    @Test
+    public void scrollTest () {
+        Assert.assertTrue(JsHelper.checkPageScroll(driver), "Странится не скроллится");
     }
 }
