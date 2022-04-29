@@ -93,6 +93,6 @@ public class SiteTest extends BaseTest{
 
     @Test
     public void scrollTest () {
-        Assert.assertTrue(JsHelper.checkPageScroll(driver), "Странится не скроллится");
+        Assert.assertTrue(JsHelper.checkPageScroll(driver), "Страница не скроллится");
     }
 }
