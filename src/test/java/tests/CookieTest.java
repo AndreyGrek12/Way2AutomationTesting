@@ -5,14 +5,22 @@ import helpers.PropertiesProvider;
 import helpers.WindowsUtils;
 import io.qameta.allure.*;
 import org.openqa.selenium.WindowType;
+import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.remote.RemoteWebDriver;
 import org.testng.annotations.*;
 import pages.CookieTestingMainPage;
 import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.time.Duration;
 
 public class CookieTest extends BaseTest {
 
     @BeforeMethod
-    public void openURL() {
+    public void setup() throws MalformedURLException {
+        driver = new RemoteWebDriver(new URL("http://localhost:4444/"), new ChromeOptions());
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+        driver.manage().window().maximize();
         driver.get(PropertiesProvider.getProperty("siteForCookieTestURL"));
     }
 

@@ -1,0 +1,20 @@
+[node]
+detect-drivers = false
+
+[[node.driver-configuration]]
+max-sessions = 1
+display-name = "Firefox"
+stereotype = "{\"browserName\": \"firefox\", \"browserVersion\": \"100\", \"platformName\": \"Windows 10\"}"
+webdriver-path = 'geckodriver'
+
+[[node.driver-configuration]]
+max-sessions = 1
+display-name = "Internet Explorer"
+stereotype = "{\"browserName\": \"internet explorer\", \"browserVersion\": \"11\", \"platformName\": \"Windows 10\"}"
+webdriver-path = 'IEDriverServer'
+
+[[node.driver-configuration]]
+max-sessions = 3
+display-name = "Chrome"
+stereotype = "{\"browserName\": \"chrome\", \"browserVersion\": \"101\", \"platformName\": \"Windows 10\"}"
+webdriver-path = 'chromedriver'
