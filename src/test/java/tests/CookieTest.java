@@ -18,8 +18,9 @@ public class CookieTest extends BaseTest {
 
     @BeforeMethod
     public void setup() throws MalformedURLException {
-        driver = new RemoteWebDriver(new URL("http://localhost:4444/"), new ChromeOptions());
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+        driver = new RemoteWebDriver(new URL(PropertiesProvider.getProperty("localhost")), new ChromeOptions());
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(PropertiesProvider
+                .getLongProperty(PropertiesProvider.getProperty("implicitlyWait"))));
         driver.manage().window().maximize();
         driver.get(PropertiesProvider.getProperty("siteForCookieTestURL"));
     }

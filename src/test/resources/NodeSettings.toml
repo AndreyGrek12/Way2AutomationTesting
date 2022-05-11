@@ -14,7 +14,7 @@ stereotype = "{\"browserName\": \"internet explorer\", \"browserVersion\": \"11\
 webdriver-path = 'IEDriverServer'
 
 [[node.driver-configuration]]
-max-sessions = 3
+max-sessions = 4
 display-name = "Chrome"
 stereotype = "{\"browserName\": \"chrome\", \"browserVersion\": \"101\", \"platformName\": \"Windows 10\"}"
 webdriver-path = 'chromedriver'
