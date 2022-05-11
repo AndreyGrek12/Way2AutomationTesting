@@ -8,6 +8,10 @@ public class PropertiesProvider {
 
     static private Properties property;
 
+    public static Long getLongProperty (String number) {
+        return Long.valueOf(number);
+    }
+
     public static String getProperty(String key){
         if (property == null){
             initData();
