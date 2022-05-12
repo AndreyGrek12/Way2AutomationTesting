@@ -3,16 +3,10 @@ package tests;
 import helpers.PropertiesProvider;
 import helpers.RetryAnalyzer;
 import helpers.TestListeners;
-import org.openqa.selenium.chrome.ChromeOptions;
-import org.openqa.selenium.remote.RemoteWebDriver;
 import org.testng.Assert;
 import org.testng.annotations.*;
 import pages.AuthorizationPage;
 import pages.MainPage;
-
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.time.Duration;
 
 import static helpers.ActionHelpers.mouseover;
 import static helpers.WindowsUtils.focusTab;
@@ -24,11 +18,7 @@ public class FailedTest extends BaseTest {
     public MainPage mainPage;
 
     @BeforeMethod
-    public void setup () throws MalformedURLException {
-        driver = new RemoteWebDriver(new URL(PropertiesProvider.getProperty("localhost")), new ChromeOptions());
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(PropertiesProvider
-                .getLongProperty(PropertiesProvider.getProperty("implicitlyWait"))));
-        driver.manage().window().maximize();
+    public void setup () {
         mainPage = new MainPage(driver);
         driver.get(PropertiesProvider.getProperty("w2aURL"));
     }
