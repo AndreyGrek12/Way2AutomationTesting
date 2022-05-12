@@ -13,3 +13,6 @@ Cookies.data
 # Maven
 log/
 target/
+
+# testNG
+test-output/

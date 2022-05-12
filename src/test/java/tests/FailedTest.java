@@ -1,8 +1,9 @@
 package tests;
 
 import helpers.PropertiesProvider;
+import helpers.RetryAnalyzer;
 import helpers.TestListeners;
-import org.openqa.selenium.firefox.FirefoxOptions;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.testng.Assert;
 import org.testng.annotations.*;
@@ -24,15 +25,15 @@ public class FailedTest extends BaseTest {
 
     @BeforeMethod
     public void setup () throws MalformedURLException {
-        driver = new RemoteWebDriver(new URL(PropertiesProvider.getProperty("localhost")), new FirefoxOptions());
+        driver = new RemoteWebDriver(new URL(PropertiesProvider.getProperty("localhost")), new ChromeOptions());
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(PropertiesProvider
                 .getLongProperty(PropertiesProvider.getProperty("implicitlyWait"))));
         driver.manage().window().maximize();
         mainPage = new MainPage(driver);
-        driver.get("https://www.way2automation.com/");
+        driver.get(PropertiesProvider.getProperty("w2aURL"));
     }
 
-    @Test
+    @Test(retryAnalyzer = RetryAnalyzer.class)
     public void failedTestOne () {
         Assert.assertFalse(mainPage.getResources().isDisplayed());
     }
