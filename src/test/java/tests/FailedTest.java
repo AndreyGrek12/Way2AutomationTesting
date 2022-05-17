@@ -1,7 +1,6 @@
 package tests;
 
 import helpers.PropertiesProvider;
-import helpers.RetryAnalyzer;
 import helpers.TestListeners;
 import org.testng.Assert;
 import org.testng.annotations.*;
@@ -23,7 +22,7 @@ public class FailedTest extends BaseTest {
         driver.get(PropertiesProvider.getProperty("w2aURL"));
     }
 
-    @Test(retryAnalyzer = RetryAnalyzer.class)
+    @Test
     public void failedTestOne () {
         Assert.assertFalse(mainPage.getResources().isDisplayed());
     }
