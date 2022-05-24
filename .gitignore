@@ -16,3 +16,6 @@ target/
 
 # testNG
 test-output/
+
+# Selenide
+build/
