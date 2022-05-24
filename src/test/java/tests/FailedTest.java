@@ -2,16 +2,10 @@ package tests;
 
 import helpers.PropertiesProvider;
 import helpers.TestListeners;
-import org.openqa.selenium.firefox.FirefoxOptions;
-import org.openqa.selenium.remote.RemoteWebDriver;
 import org.testng.Assert;
 import org.testng.annotations.*;
 import pages.AuthorizationPage;
 import pages.MainPage;
-
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.time.Duration;
 
 import static helpers.ActionHelpers.mouseover;
 import static helpers.WindowsUtils.focusTab;
@@ -23,13 +17,9 @@ public class FailedTest extends BaseTest {
     public MainPage mainPage;
 
     @BeforeMethod
-    public void setup () throws MalformedURLException {
-        driver = new RemoteWebDriver(new URL(PropertiesProvider.getProperty("localhost")), new FirefoxOptions());
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(PropertiesProvider
-                .getLongProperty(PropertiesProvider.getProperty("implicitlyWait"))));
-        driver.manage().window().maximize();
+    public void setup () {
         mainPage = new MainPage(driver);
-        driver.get("https://www.way2automation.com/");
+        driver.get(PropertiesProvider.getProperty("w2aURL"));
     }
 
     @Test

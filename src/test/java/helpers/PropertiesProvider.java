@@ -12,6 +12,10 @@ public class PropertiesProvider {
         return Long.valueOf(number);
     }
 
+    public static boolean getBooleanProperty(String bool) {
+        return Boolean.parseBoolean(bool);
+    }
+
     public static String getProperty(String key){
         if (property == null){
             initData();
