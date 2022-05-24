@@ -16,7 +16,6 @@ public class TabTest extends BaseTest{
         driver.get(PropertiesProvider.getProperty("framesAndWindowsSiteURL"));
     }
 
-
     @Epic("Страницы для практики")
     @Feature("Проверка работы Frames and Windows")
     @Story("Проверка открытия новых вкладок при нажатии на кнопку")

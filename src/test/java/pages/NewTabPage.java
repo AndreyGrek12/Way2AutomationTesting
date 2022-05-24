@@ -1,5 +1,6 @@
 package pages;
 
+import io.qameta.allure.Step;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -17,10 +18,8 @@ public class NewTabPage {
         PageFactory.initElements(driver, this);
     }
 
-
+    @Step("Клик на кнопку открытия новой вкладки")
     public void openNewTab() {
         newTabButton.click();
     }
-
-
 }

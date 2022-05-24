@@ -1,5 +1,6 @@
 package pages;
 
+import io.qameta.allure.Step;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -20,11 +21,13 @@ public class FramesAndWindowsPage {
         PageFactory.initElements(driver, this);
     }
 
+    @Step("Переключение фрейма")
     public FramesAndWindowsPage changeFrame () {
         driver.switchTo().frame(iFrame);
         return this;
     }
 
+    @Step("Клик на кнопку открытия новой вкладки")
     public NewTabPage openNewTab() {
         newTabButton.click();
         return new NewTabPage(driver);

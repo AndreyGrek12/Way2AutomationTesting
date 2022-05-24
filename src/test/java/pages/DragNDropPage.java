@@ -1,5 +1,6 @@
 package pages;
 
+import io.qameta.allure.Step;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
@@ -24,16 +25,19 @@ public class DragNDropPage {
         PageFactory.initElements(driver, this);
     }
 
+    @Step("Переключение фрейма")
     public DragNDropPage changeFrame () {
         driver.switchTo().frame(iFrame);
         return this;
     }
 
+    @Step("Перенос элемента")
     public DragNDropPage dragNDrop () {
         new Actions(driver).dragAndDrop(draggableElement,placeToDrop).build().perform();
         return this;
     }
 
+    @Step("Получение текста из элемента для переноса")
     public String getText () {
         return placeToDrop.getText();
     }
