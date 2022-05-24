@@ -1,6 +1,7 @@
 package tests;
 
 import com.codeborne.selenide.Condition;
+import helpers.PropertiesProvider;
 import io.qameta.allure.*;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -13,7 +14,7 @@ public class AlertTest {
 
     @BeforeMethod
     public void setup() {
-        open("http://way2automation.com/way2auto_jquery/alert.php");
+        open(PropertiesProvider.getProperty("alertSiteURL"));
     }
 
     @Epic("Страницы для практики")
