@@ -15,7 +15,7 @@ public class AlertStepDefs {
     AlertPage alertPage = new AlertPage();
     String textToSend = "Andrey";
 
-    @Допустим("браузер запущен")
+    @Допустим("сайт с алертом открыт")
     public void сайтСАлертомОткрыт() {
         open(PropertiesProvider.getProperty("alertSiteURL"));
     }
@@ -24,19 +24,18 @@ public class AlertStepDefs {
     public void пользовательНажал() {
         alertPage.clickOnInputAlert();
     }
+
     @Если("нажал на кнопку Click the button to demonstrate the Input box.")
     public void нажалНаКнопку() {
         alertPage.changeFrame()
                 .clickOnDemonstrateButton();
     }
+
     @Если("ввел текст")
     public void ввелТекст() {
         alertPage.sendKeysToAlert(textToSend);
     }
-    @Если("нажал кнопку ОК")
-    public void нажалКнопкуОК() {
-        // Write code here that turns the phrase above into concrete actions
-    }
+
     @Тогда("на вебстранице отображается текст содержащий ранее введенный текст")
     public void наВебстраницеОтображаетсяТекстСодержащийРанееВведенныйТекст() {
         $("#demo").shouldHave(Condition.text("Hello " + textToSend + "! How are you today?"));
