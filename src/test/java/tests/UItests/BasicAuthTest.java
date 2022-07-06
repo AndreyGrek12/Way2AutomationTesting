@@ -1,4 +1,4 @@
-package tests;
+package tests.UItests;
 
 import com.codeborne.selenide.Condition;
 import helpers.PropertiesProvider;

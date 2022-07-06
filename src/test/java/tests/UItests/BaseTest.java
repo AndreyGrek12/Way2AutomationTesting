@@ -1,4 +1,4 @@
-package tests;
+package tests.UItests;
 
 import helpers.DriverFactory;
 import helpers.PropertiesProvider;

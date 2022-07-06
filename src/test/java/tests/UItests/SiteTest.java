@@ -1,4 +1,4 @@
-package tests;
+package tests.UItests;
 
 import helpers.JsHelper;
 import helpers.PropertiesProvider;

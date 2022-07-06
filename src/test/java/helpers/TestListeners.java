@@ -5,7 +5,7 @@ import org.openqa.selenium.WebDriver;
 import org.testng.ITestListener;
 import org.testng.ITestResult;
 import ru.yandex.qatools.ashot.AShot;
-import tests.BaseTest;
+import tests.UItests.BaseTest;
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;

@@ -1,42 +1,40 @@
-package tests;
+package tests.APItests;
 
+import io.restassured.RestAssured;
 import io.restassured.response.Response;
 import org.json.JSONObject;
-import io.restassured.RestAssured;
 import org.testng.annotations.Test;
 
+import static io.restassured.RestAssured.baseURI;
 import static io.restassured.RestAssured.given;
 
-public class PostTest {
+public class CommentTest {
 
     @Test
-    public void createPostTest(){
-        RestAssured.baseURI = "http://localhost:8000/index.php";
+    public void createCommentTest() {
+        RestAssured.baseURI = "http://localhost:8000/index.php?rest_route=/wp/v2/comments/";
         JSONObject requestBody = new JSONObject();
-        requestBody.put("title","Test Post");
-        requestBody.put("content","Test Post");
-        requestBody.put("status","publish");
+        requestBody.put("content","Test Comment")
+                .put("post","47");
 
-         Response response = given()
+        Response response = given()
                 .body(requestBody.toString())
                 .auth()
                 .preemptive()
                 .basic("Andrey Grek", "123-Test")
                 .contentType("application/json")
-                .queryParam("rest_route","/wp/v2/posts")
                 .when()
-                    .post()
+                    .post(baseURI)
                 .then()
                     .statusCode(201)
                 .extract().response();
     }
 
     @Test
-    public void updatePostTest () {
-        RestAssured.baseURI = "http://localhost:8000/index.php";
+    public void updateCommentTest () {
+        RestAssured.baseURI = "http://localhost:8000/index.php?rest_route=/wp/v2/comments/";
         JSONObject requestBody = new JSONObject();
-        requestBody.put("title","Test Update");
-        requestBody.put("content","Test Update");
+        requestBody.put("content","Test Comment Updated");
 
         Response response = given()
                 .body(requestBody.toString())
@@ -44,33 +42,25 @@ public class PostTest {
                 .preemptive()
                 .basic("Andrey Grek", "123-Test")
                 .contentType("application/json")
-                .queryParam("rest_route","wp/v2/posts/45")
-                .log()
-                .all()
                 .when()
-                    .post()
+                .post(baseURI + "37")
                 .then()
-                    .statusCode(404)
+                .statusCode(200)
                 .extract().response();
-        response.prettyPrint();
     }
 
     @Test
-    public void deletePostTest() {
-        RestAssured.baseURI = "http://localhost:8000/index.php";
+    public void deleteCommentTest () {
+        RestAssured.baseURI = "http://localhost:8000/index.php?rest_route=/wp/v2/comments/";
 
         Response response = given()
                 .auth()
                 .preemptive()
                 .basic("Andrey Grek", "123-Test")
-                .queryParam("rest_route","wp/v2/posts/45")
-                .log()
-                .all()
                 .when()
-                    .delete()
+                .delete(baseURI + "37")
                 .then()
-                    .statusCode(404)
+                .statusCode(200)
                 .extract().response();
-        response.prettyPrint();
     }
 }
