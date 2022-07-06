@@ -1,4 +1,4 @@
-package tests.UItests;
+package tests.uItests;
 
 import io.cucumber.testng.AbstractTestNGCucumberTests;
 import io.cucumber.testng.CucumberOptions;

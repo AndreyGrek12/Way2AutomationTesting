@@ -7,13 +7,12 @@ import org.json.JSONObject;
 import static io.restassured.RestAssured.baseURI;
 import static io.restassured.RestAssured.given;
 
-public class PostRequests {
-    
-    public static Response createPost(String title, String content) {
+public class CommentRequests {
+
+    public static Response createComment(String content, int postID) {
         JSONObject requestBody = new JSONObject();
-        requestBody.put("title", title)
-                .put("content", content)
-                .put("status","publish");
+        requestBody.put("content", content)
+                .put("post", postID);
 
         return given()
                     .body(requestBody.toString())
@@ -23,37 +22,36 @@ public class PostRequests {
                             PropertiesProvider.getProperty("baseAuthPassword"))
                     .contentType("application/json")
                .when()
-                    .post(baseURI+"posts/")
+                    .post(baseURI + "comments/")
                .then()
                .extract().response();
     }
 
-    public static Response updatePost(String newTitle, String newContent, int postID) {
+    public static Response updateComment(String newContent, int commentID) {
         JSONObject requestBody = new JSONObject();
-        requestBody.put("title", newTitle)
-                .put("content", newContent);
+        requestBody.put("content", newContent);
 
         return given()
-                .body(requestBody.toString())
-                .auth()
-                .preemptive()
-                .basic(PropertiesProvider.getProperty("baseAuthLogin"),
-                        PropertiesProvider.getProperty("baseAuthPassword"))
-                .contentType("application/json")
-        .when()
-                .post(baseURI + "posts/" + postID)
-        .then()
-        .extract().response();
+                    .body(requestBody.toString())
+                    .auth()
+                    .preemptive()
+                    .basic(PropertiesProvider.getProperty("baseAuthLogin"),
+                            PropertiesProvider.getProperty("baseAuthPassword"))
+                    .contentType("application/json")
+               .when()
+                    .post(baseURI + "comments/" + commentID)
+               .then()
+               .extract().response();
     }
 
-    public static Response deletePost(int postID) {
+    public static Response deleteComment(int commentID) {
         return given()
                     .auth()
                     .preemptive()
                     .basic(PropertiesProvider.getProperty("baseAuthLogin"),
                             PropertiesProvider.getProperty("baseAuthPassword"))
                .when()
-                    .delete(baseURI + "posts/" + postID)
+                    .delete(baseURI + "comments/" + commentID)
                .then()
                .extract().response();
     }

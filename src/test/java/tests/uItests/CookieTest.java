@@ -1,4 +1,4 @@
-package tests.UItests;
+package tests.uItests;
 
 import helpers.CookieHelper;
 import helpers.PropertiesProvider;

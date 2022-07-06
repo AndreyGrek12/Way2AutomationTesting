@@ -1,4 +1,4 @@
-package tests.UItests;
+package tests.uItests;
 
 import helpers.PropertiesProvider;
 import helpers.WindowsUtils;

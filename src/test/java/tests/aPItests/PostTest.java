@@ -1,5 +1,6 @@
-package tests.APItests;
+package tests.aPItests;
 
+import helpers.PropertiesProvider;
 import io.restassured.response.Response;
 
 import io.restassured.RestAssured;
@@ -13,7 +14,7 @@ public class PostTest {
 
     @BeforeMethod
     public void setup() {
-        RestAssured.baseURI = "http://localhost:8000/index.php?rest_route=/wp/v2/posts/";
+        RestAssured.baseURI = PropertiesProvider.getProperty("baseURI");
         response = PostRequests.createPost("title","content");
     }
 
