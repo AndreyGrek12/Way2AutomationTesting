@@ -1,27 +1,24 @@
 package requests;
 
-import helpers.PropertiesProvider;
 import io.restassured.response.Response;
-import org.json.JSONObject;
+import pOJO.RequestBody;
 
 import static io.restassured.RestAssured.baseURI;
 import static io.restassured.RestAssured.given;
+import static requests.BaseRequest.baseRequest;
 
 public class PostRequests {
     
     public static Response createPost(String title, String content) {
-        JSONObject requestBody = new JSONObject();
-        requestBody.put("title", title)
-                .put("content", content)
-                .put("status","publish");
+        RequestBody requestBody = RequestBody.builder()
+                .title(title)
+                .content(content)
+                .status("publish")
+                .build();
 
         return given()
-                    .body(requestBody.toString())
-                    .auth()
-                    .preemptive()
-                    .basic(PropertiesProvider.getProperty("baseAuthLogin"),
-                            PropertiesProvider.getProperty("baseAuthPassword"))
-                    .contentType("application/json")
+                    .spec(baseRequest())
+                    .body(requestBody)
                .when()
                     .post(baseURI+"posts/")
                .then()
@@ -29,29 +26,23 @@ public class PostRequests {
     }
 
     public static Response updatePost(String newTitle, String newContent, int postID) {
-        JSONObject requestBody = new JSONObject();
-        requestBody.put("title", newTitle)
-                .put("content", newContent);
+        RequestBody requestBody = RequestBody.builder()
+                .title(newTitle)
+                .content(newContent)
+                .build();
 
         return given()
-                .body(requestBody.toString())
-                .auth()
-                .preemptive()
-                .basic(PropertiesProvider.getProperty("baseAuthLogin"),
-                        PropertiesProvider.getProperty("baseAuthPassword"))
-                .contentType("application/json")
-        .when()
-                .post(baseURI + "posts/" + postID)
-        .then()
-        .extract().response();
+                    .spec(baseRequest())
+                    .body(requestBody)
+                .when()
+                    .post(baseURI + "posts/" + postID)
+                .then()
+                .extract().response();
     }
 
     public static Response deletePost(int postID) {
         return given()
-                    .auth()
-                    .preemptive()
-                    .basic(PropertiesProvider.getProperty("baseAuthLogin"),
-                            PropertiesProvider.getProperty("baseAuthPassword"))
+                    .spec(baseRequest())
                .when()
                     .delete(baseURI + "posts/" + postID)
                .then()

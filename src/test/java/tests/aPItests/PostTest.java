@@ -1,9 +1,6 @@
 package tests.aPItests;
 
-import helpers.PropertiesProvider;
 import io.restassured.response.Response;
-
-import io.restassured.RestAssured;
 import org.testng.Assert;
 import org.testng.annotations.*;
 import requests.PostRequests;
@@ -14,7 +11,6 @@ public class PostTest {
 
     @BeforeMethod
     public void setup() {
-        RestAssured.baseURI = PropertiesProvider.getProperty("baseURI");
         response = PostRequests.createPost("title","content");
     }
 

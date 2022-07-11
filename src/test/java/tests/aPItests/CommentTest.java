@@ -1,7 +1,5 @@
 package tests.aPItests;
 
-import helpers.PropertiesProvider;
-import io.restassured.RestAssured;
 import io.restassured.response.Response;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
@@ -17,9 +15,9 @@ public class CommentTest {
 
     @BeforeMethod
     public void setup() {
-        RestAssured.baseURI = PropertiesProvider.getProperty("baseURI");
         createPostResponse = PostRequests.createPost("title","content");
-        createCommentResponse = CommentRequests.createComment("content", createPostResponse.jsonPath().getInt("id"));
+        createCommentResponse = CommentRequests.createComment("content",
+                createPostResponse.jsonPath().getInt("id"));
     }
 
     @AfterMethod

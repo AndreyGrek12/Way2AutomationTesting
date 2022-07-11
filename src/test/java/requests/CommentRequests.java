@@ -1,26 +1,23 @@
 package requests;
 
-import helpers.PropertiesProvider;
 import io.restassured.response.Response;
-import org.json.JSONObject;
+import pOJO.RequestBody;
 
 import static io.restassured.RestAssured.baseURI;
 import static io.restassured.RestAssured.given;
+import static requests.BaseRequest.baseRequest;
 
 public class CommentRequests {
 
     public static Response createComment(String content, int postID) {
-        JSONObject requestBody = new JSONObject();
-        requestBody.put("content", content)
-                .put("post", postID);
+        RequestBody requestBody = RequestBody.builder()
+                .content(content)
+                .post(postID)
+                .build();
 
         return given()
-                    .body(requestBody.toString())
-                    .auth()
-                    .preemptive()
-                    .basic(PropertiesProvider.getProperty("baseAuthLogin"),
-                            PropertiesProvider.getProperty("baseAuthPassword"))
-                    .contentType("application/json")
+                    .spec(baseRequest())
+                    .body(requestBody)
                .when()
                     .post(baseURI + "comments/")
                .then()
@@ -28,28 +25,22 @@ public class CommentRequests {
     }
 
     public static Response updateComment(String newContent, int commentID) {
-        JSONObject requestBody = new JSONObject();
-        requestBody.put("content", newContent);
+        RequestBody requestBody = RequestBody.builder()
+                .content(newContent)
+                .build();
 
         return given()
-                    .body(requestBody.toString())
-                    .auth()
-                    .preemptive()
-                    .basic(PropertiesProvider.getProperty("baseAuthLogin"),
-                            PropertiesProvider.getProperty("baseAuthPassword"))
-                    .contentType("application/json")
+                    .spec(baseRequest())
+                    .body(requestBody)
                .when()
                     .post(baseURI + "comments/" + commentID)
                .then()
                .extract().response();
     }
 
-    public static Response deleteComment(int commentID) {
+    public static Response deleteComment(Integer commentID) {
         return given()
-                    .auth()
-                    .preemptive()
-                    .basic(PropertiesProvider.getProperty("baseAuthLogin"),
-                            PropertiesProvider.getProperty("baseAuthPassword"))
+                    .spec(baseRequest())
                .when()
                     .delete(baseURI + "comments/" + commentID)
                .then()
