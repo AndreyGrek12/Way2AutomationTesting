@@ -5,10 +5,18 @@ import pOJO.RequestBody;
 
 import static io.restassured.RestAssured.baseURI;
 import static io.restassured.RestAssured.given;
-import static requests.BaseRequest.baseRequest;
 
-public class PostRequests {
-    
+/**
+ * Класс содержит методы, вызвав которые отправляется определенный запрос связанный с постами
+ */
+public class PostRequests extends BaseRequest{
+
+    /**
+     * Этот метод отправляет запрос на создание поста с некторыми данными:
+     * @param title отвечает за заголовок поста,
+     * @param content отвечает за текст поста.
+     * @return возвращает ответ на запрос.
+     */
     public static Response createPost(String title, String content) {
         RequestBody requestBody = RequestBody.builder()
                 .title(title)
@@ -17,7 +25,7 @@ public class PostRequests {
                 .build();
 
         return given()
-                    .spec(baseRequest())
+                    .spec(baseRequest)
                     .body(requestBody)
                .when()
                     .post(baseURI+"posts/")
@@ -25,6 +33,13 @@ public class PostRequests {
                .extract().response();
     }
 
+    /**
+     * Этот метод отправляет запрос на редактирование поста с некторыми данными:
+     * @param newTitle отвечает за новый заголовок поста,
+     * @param newContent отвечает за новый текст поста,
+     * @param postID отвечает за id поста, который необходимо отредактировать.
+     * @return возвращает ответ на запрос.
+     */
     public static Response updatePost(String newTitle, String newContent, int postID) {
         RequestBody requestBody = RequestBody.builder()
                 .title(newTitle)
@@ -32,7 +47,7 @@ public class PostRequests {
                 .build();
 
         return given()
-                    .spec(baseRequest())
+                    .spec(baseRequest)
                     .body(requestBody)
                 .when()
                     .post(baseURI + "posts/" + postID)
@@ -40,9 +55,14 @@ public class PostRequests {
                 .extract().response();
     }
 
+    /**
+     * Этот метод отправляет запрос на удаление поста.
+     * @param postID отвечает за id поста, который необходимо удалить.
+     * @return возвращает ответ на запрос.
+     */
     public static Response deletePost(int postID) {
         return given()
-                    .spec(baseRequest())
+                    .spec(baseRequest)
                .when()
                     .delete(baseURI + "posts/" + postID)
                .then()

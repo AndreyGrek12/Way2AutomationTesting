@@ -7,17 +7,20 @@ import io.restassured.specification.RequestSpecification;
 
 import static io.restassured.RestAssured.given;
 
-public class BaseRequest {
+abstract class BaseRequest {
 
-    public static RequestSpecification baseRequest() {
+    static {
         RestAssured.baseURI = PropertiesProvider.getProperty("baseURI");
-        return given()
+    }
+
+    protected static RequestSpecification baseRequest =
+            given()
                     .contentType(ContentType.JSON)
                     .auth()
                     .preemptive()
                     .basic(PropertiesProvider.getProperty("baseAuthLogin"),
-                        PropertiesProvider.getProperty("baseAuthPassword"))
-                .log()
-                .all();
-    }
+                            PropertiesProvider.getProperty("baseAuthPassword"))
+                    .log()
+                    .all();
+
 }

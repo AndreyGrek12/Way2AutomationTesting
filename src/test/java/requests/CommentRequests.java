@@ -5,10 +5,18 @@ import pOJO.RequestBody;
 
 import static io.restassured.RestAssured.baseURI;
 import static io.restassured.RestAssured.given;
-import static requests.BaseRequest.baseRequest;
 
-public class CommentRequests {
+/**
+ * Класс содержит методы, вызвав которые отправляется определенный запрос связанный с комментариями
+ */
+public class CommentRequests extends BaseRequest {
 
+    /**
+     * Этот метод отправляет запрос на создание комментария с некторыми данными:
+     * @param content отвечает за текст комментария,
+     * @param postID отвечает за id поста, к которому комментарий будет относиться.
+     * @return возвращает ответ на запрос
+     */
     public static Response createComment(String content, int postID) {
         RequestBody requestBody = RequestBody.builder()
                 .content(content)
@@ -16,7 +24,7 @@ public class CommentRequests {
                 .build();
 
         return given()
-                    .spec(baseRequest())
+                    .spec(baseRequest)
                     .body(requestBody)
                .when()
                     .post(baseURI + "comments/")
@@ -24,13 +32,19 @@ public class CommentRequests {
                .extract().response();
     }
 
+    /**
+     * Этот метод отправляет запрос на редактирование комментария с некторыми данными:
+     * @param newContent отвечает за новый текст комментария,
+     * @param commentID отвечает за id комментария, который необходимо отредактировать.
+     * @return возвращает ответ на запрос.
+     */
     public static Response updateComment(String newContent, int commentID) {
         RequestBody requestBody = RequestBody.builder()
                 .content(newContent)
                 .build();
 
         return given()
-                    .spec(baseRequest())
+                    .spec(baseRequest)
                     .body(requestBody)
                .when()
                     .post(baseURI + "comments/" + commentID)
@@ -38,9 +52,14 @@ public class CommentRequests {
                .extract().response();
     }
 
+    /**
+     * Этот метод отправляет запрос на удаление комментария.
+     * @param commentID отвечает за id комментария, который необходимо удалить.
+     * @return возвращает ответ на запрос.
+     */
     public static Response deleteComment(Integer commentID) {
         return given()
-                    .spec(baseRequest())
+                    .spec(baseRequest)
                .when()
                     .delete(baseURI + "comments/" + commentID)
                .then()
