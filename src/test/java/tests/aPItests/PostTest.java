@@ -1,17 +1,24 @@
 package tests.aPItests;
 
+import helpers.DataBaseHelper;
 import io.restassured.response.Response;
 import org.testng.Assert;
 import org.testng.annotations.*;
 import requests.PostRequests;
 
+import java.sql.SQLException;
+
 public class PostTest {
 
     private Response response;
+    String content = "content";
+    String title = "title";
+    String newContent = "New Content";
+    String newTitle = "New Title";
 
     @BeforeMethod
-    public void setup() {
-        response = PostRequests.createPost("title","content");
+    public void setup() throws SQLException {
+        response = PostRequests.createPost(title,content);
     }
 
     @AfterMethod
@@ -20,42 +27,48 @@ public class PostTest {
     }
 
     @Test
-    public void createPostTest(){
+    public void createPostTest() throws SQLException {
         Assert.assertEquals(response.getStatusCode(),
                 201,
                 "Код ответа на запрос не совпадает");
-        Assert.assertEquals(response.jsonPath().getString("title.raw"),
-                "title",
+        Assert.assertEquals(DataBaseHelper.selectDataFromPosts(response.jsonPath().getInt("id"))
+                        .getString("post_title"),
+                title,
                 "Заголовки не совпадают");
-        Assert.assertEquals(response.jsonPath().getString("content.raw"),
-                "content",
+        Assert.assertEquals(DataBaseHelper.selectDataFromPosts(response.jsonPath().getInt("id"))
+                        .getString("post_content"),
+                content,
                 "Контентная часть не совпадает");
-        Assert.assertEquals(response.jsonPath().getString("status"),
+        Assert.assertEquals(DataBaseHelper.selectDataFromPosts(response.jsonPath().getInt("id"))
+                        .getString("post_status"),
                 "publish",
                 "Пост не опубликован");
     }
 
     @Test
-    public void updatePostTest () {
-        response = PostRequests.updatePost("new Title","new Content", response.jsonPath().getInt("id"));
+    public void updatePostTest () throws SQLException {
+        response = PostRequests.updatePost(newTitle,newContent, response.jsonPath().getInt("id"));
         Assert.assertEquals(response.getStatusCode(),
                 200,
                 "Код ответа на запрос не совпадает");
-        Assert.assertEquals(response.jsonPath().getString("title.raw"),
-                "new Title",
+        Assert.assertEquals(DataBaseHelper.selectDataFromPosts(response.jsonPath().getInt("id"))
+                        .getString("post_title"),
+                newTitle,
                 "Заголовки не совпадают");
-        Assert.assertEquals(response.jsonPath().getString("content.raw"),
-                "new Content",
+        Assert.assertEquals(DataBaseHelper.selectDataFromPosts(response.jsonPath().getInt("id"))
+                        .getString("post_content"),
+                newContent,
                 "Контентная часть не совпадает");
     }
 
     @Test
-    public void deletePostTest() {
+    public void deletePostTest() throws SQLException {
         response = PostRequests.deletePost(response.jsonPath().getInt("id"));
         Assert.assertEquals(response.getStatusCode(),
                 200,
                 "Код ответа на запрос не совпадает");
-        Assert.assertEquals(response.jsonPath().getString("status"),
+        Assert.assertEquals(DataBaseHelper.selectDataFromPosts(response.jsonPath().getInt("id"))
+                        .getString("post_status"),
                 "trash",
                 "Пост не удален");
     }

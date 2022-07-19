@@ -13,14 +13,11 @@ abstract class BaseRequest {
         RestAssured.baseURI = PropertiesProvider.getProperty("baseURI");
     }
 
-    protected static RequestSpecification baseRequest =
+    static RequestSpecification baseRequest =
             given()
                     .contentType(ContentType.JSON)
                     .auth()
                     .preemptive()
                     .basic(PropertiesProvider.getProperty("baseAuthLogin"),
-                            PropertiesProvider.getProperty("baseAuthPassword"))
-                    .log()
-                    .all();
-
+                            PropertiesProvider.getProperty("baseAuthPassword"));
 }
