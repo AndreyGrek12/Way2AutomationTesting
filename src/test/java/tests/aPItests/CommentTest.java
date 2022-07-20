@@ -61,9 +61,8 @@ public class CommentTest {
         Assert.assertEquals(response.getStatusCode(),
                 200,
                 "Код ответа на запрос не совпадает");
-        Assert.assertEquals(DataBaseHelper.getRawCount(
+        Assert.assertFalse(DataBaseHelper.isRawExist(
                 DataBaseHelper.selectDataFromComments(createCommentResponse.jsonPath().getInt("id"))),
-                0,
                 "Комментарий не удален");
     }
 }

@@ -7,10 +7,29 @@ public class DataBaseHelper {
     private static final Connection connection = createConnection();
 
     //Запрос на получение поста по его ID
-    private static final String postStatement = "Select * from wp_posts where post_ID = ";
-
+    private static final String preparedPostStatement = "Select * from wp_posts where ID = ?";
     //Запрос на получение комментария по его ID
-    private static final String commentStatement = "Select * from wp_comments where comment_ID = ";
+    private static final String preparedCommentStatement = "Select * from wp_comments where comment_ID = ?";
+
+    private static PreparedStatement postStmt = null;
+
+    static {
+        try {
+            postStmt = connection.prepareStatement(preparedPostStatement);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private static PreparedStatement commentStmt = null;
+
+    static {
+        try {
+            commentStmt = connection.prepareStatement(preparedCommentStatement);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 
     /**
      * Метод выполняет соединение с базой данных.
@@ -35,8 +54,8 @@ public class DataBaseHelper {
      */
     public static ResultSet selectDataFromPosts(Integer postID) {
         try {
-            Statement stmt = connection.createStatement();
-            ResultSet rs = stmt.executeQuery(postStatement  + postID);
+            postStmt.setString(1, postID.toString());
+            ResultSet rs = postStmt.executeQuery();
             rs.next();
             return rs;
         } catch (SQLException e) {
@@ -52,8 +71,8 @@ public class DataBaseHelper {
      */
     public static ResultSet selectDataFromComments(Integer commentID) {
         try {
-            Statement stmt = connection.createStatement();
-            ResultSet rs = stmt.executeQuery(commentStatement + commentID);
+            commentStmt.setString(1, commentID.toString());
+            ResultSet rs = commentStmt.executeQuery();
             rs.next();
             return rs;
         } catch (SQLException e) {
@@ -63,17 +82,13 @@ public class DataBaseHelper {
     }
 
     /**
-     * Метод считает количество строк в результате запроса.
-     * @param rs Результат запроса, в котором необходимо посчитать количество строк.
-     * @return возвращает количество строк.
+     * Метод определяет наличие записей в результате запроса.
+     * @param rs Результат запроса, в котором необходимо узнать сущствование строк.
+     * @return возвращает истинность существования.
      */
-    public static Object getRawCount (ResultSet rs) {
+    public static Boolean isRawExist (ResultSet rs) {
         try {
-            int rawCount = 0;
-            while (rs.next()) {
-                rawCount++;
-            }
-            return rawCount;
+            return rs.next();
         } catch (SQLException e) {
             e.printStackTrace();
             return null;
