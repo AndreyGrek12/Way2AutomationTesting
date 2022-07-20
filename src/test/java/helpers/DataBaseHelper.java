@@ -4,42 +4,79 @@ import java.sql.*;
 
 public class DataBaseHelper {
 
-    private static Connection connection = null;
+    private static final Connection connection = createConnection();
 
-    static {
-        try {
-            connection = createConnection();
+    //Запрос на получение поста по его ID
+    private static final String postStatement = "Select * from wp_posts where post_ID = ";
+
+    //Запрос на получение комментария по его ID
+    private static final String commentStatement = "Select * from wp_comments where comment_ID = ";
+
+    /**
+     * Метод выполняет соединение с базой данных.
+     * @return возвращает соединение.
+     */
+    public static Connection createConnection() {
+        try{
+            return DriverManager
+                    .getConnection(PropertiesProvider.getProperty("dataBaseURI"),
+                            PropertiesProvider.getProperty("dataBaseLogin"),
+                            PropertiesProvider.getProperty("dataBasePassword"));
         } catch (SQLException e) {
             e.printStackTrace();
+            return null;
         }
     }
 
-    public static Connection createConnection() throws SQLException {
-        return DriverManager
-                .getConnection(PropertiesProvider.getProperty("dataBaseURI"), "wordpress", "wordpress");
-    }
-
-    public static ResultSet selectDataFromPosts(Integer postID) throws SQLException {
-        Statement stmt = connection.createStatement();
-        ResultSet rs = stmt.executeQuery("Select * from wp_posts " +
-                "where ID = "  + postID);
-        rs.next();
-        return rs;
-    }
-
-    public static ResultSet selectDataFromComments(Integer commentID) throws SQLException {
-        Statement stmt = connection.createStatement();
-        ResultSet rs = stmt.executeQuery("Select * from wp_comments " +
-                "where comment_ID = "  + commentID);
+    /**
+     * Метод отправляет запрос к базе данных на получение информации о посте с заданным ID.
+     * @param postID ID поста, информацию о котором нобходимо получить.
+     * @return Возвращает результат запроса.
+     */
+    public static ResultSet selectDataFromPosts(Integer postID) {
+        try {
+            Statement stmt = connection.createStatement();
+            ResultSet rs = stmt.executeQuery(postStatement  + postID);
             rs.next();
             return rs;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 
-    public static int getRawCount (ResultSet rs) throws SQLException {
-        int rawCount = 0;
-        while (rs.next()) {
-            rawCount ++;
+    /**
+     * Метод отправляет запрос к базе данных на получение информации о комментарии с заданным ID.
+     * @param commentID ID комментария, информацию о котором нобходимо получить.
+     * @return Возвращает результат запроса.
+     */
+    public static ResultSet selectDataFromComments(Integer commentID) {
+        try {
+            Statement stmt = connection.createStatement();
+            ResultSet rs = stmt.executeQuery(commentStatement + commentID);
+            rs.next();
+            return rs;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
         }
-        return rawCount;
+    }
+
+    /**
+     * Метод считает количество строк в результате запроса.
+     * @param rs Результат запроса, в котором необходимо посчитать количество строк.
+     * @return возвращает количество строк.
+     */
+    public static Object getRawCount (ResultSet rs) {
+        try {
+            int rawCount = 0;
+            while (rs.next()) {
+                rawCount++;
+            }
+            return rawCount;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 }

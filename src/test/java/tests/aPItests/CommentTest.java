@@ -56,14 +56,14 @@ public class CommentTest {
     }
 
     @Test
-    public void deleteCommentTest () throws SQLException {
+    public void deleteCommentTest () {
         Response response = CommentRequests.deleteComment(createCommentResponse.jsonPath().getInt("id"));
         Assert.assertEquals(response.getStatusCode(),
                 200,
                 "Код ответа на запрос не совпадает");
         Assert.assertEquals(DataBaseHelper.getRawCount(
                 DataBaseHelper.selectDataFromComments(createCommentResponse.jsonPath().getInt("id"))),
-                0   ,
+                0,
                 "Комментарий не удален");
     }
 }
