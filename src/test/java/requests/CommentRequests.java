@@ -65,4 +65,18 @@ public class CommentRequests extends BaseRequest {
                .then()
                .extract().response();
     }
+
+    /**
+     * Этот метод отправляет запрос на получение информации о комментарии.
+     * @param commentID ID комментария
+     * @return возвращает ответ на запрос.
+     */
+    public static Response getCommentInfo(Integer commentID) {
+        return given()
+                .spec(baseRequest)
+        .when()
+                .get(baseURI + "comments/" + commentID)
+        .then()
+                .extract().response();
+    }
 }

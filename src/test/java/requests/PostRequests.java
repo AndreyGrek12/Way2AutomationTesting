@@ -68,4 +68,17 @@ public class PostRequests extends BaseRequest{
                .then()
                .extract().response();
     }
+
+    /**
+     * Этот метод отправляет запрос на получение информации о посте.
+     * @return возвращает ответ на запрос.
+     */
+    public static Response getPostInfo(Integer postID) {
+        return given()
+                .spec(baseRequest)
+        .when()
+                .get(baseURI + "posts/" + postID)
+        .then()
+                .extract().response();
+    }
 }
