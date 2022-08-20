@@ -13,9 +13,6 @@ public class DataBaseHelper {
     //Запрос на создание поста
     private static final String preparedCreatePostStatement = "insert into wp_posts (post_title, post_content, post_status) " +
             "values (?, ?, 'publish');";
-    //Запрос на редактирование поста
-    private static final String preparedUpdatePostStatement = "update wp_posts set post_title=?, post_content=? " +
-            "where ID=?;";
     //Запрос на удаление поста
     private static final String preparedDeletePostStatement = "delete from wp_posts " +
             "where ID=?;";
@@ -24,9 +21,6 @@ public class DataBaseHelper {
     //Запрос на создание комментария
     private static final String preparedCreateCommentStatement = "insert into wp_comments (comment_post_ID, comment_content) " +
             "values (?, ?);";
-    //Запрос на редактирование комментария по его ID
-    private static final String preparedUpdateCommentStatement = "update wp_comments set comment_content=? " +
-            "where comment_ID=?;";
     //Запрос на удаление комментария
     private static final String preparedDeleteCommentStatement = "delete from wp_comments " +
             "where comment_ID=?;";
@@ -87,16 +81,6 @@ public class DataBaseHelper {
         }
     }
 
-    private static PreparedStatement updatePostStmt = null;
-
-    static {
-        try {
-            updatePostStmt = connection.prepareStatement(preparedUpdatePostStatement);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-
     private static PreparedStatement deletePostStmt = null;
 
     static {
@@ -122,16 +106,6 @@ public class DataBaseHelper {
     static {
         try {
             createCommentStmt = connection.prepareStatement(preparedCreateCommentStatement);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-
-    private static PreparedStatement updateCommentStmt = null;
-
-    static {
-        try {
-            updateCommentStmt = connection.prepareStatement(preparedUpdateCommentStatement);
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -227,23 +201,6 @@ public class DataBaseHelper {
     }
 
     /**
-     * Метод отправляет запрос к базе данных на редактирование поста.
-     * @param newTitle Новый заголовок.
-     * @param newContent Новый текст поста.
-     * @param postID ID поста, который необходимо отредактировать.
-     */
-    public static void updatePost(String newTitle, String newContent, Integer postID) {
-        try {
-            updatePostStmt.setString(1, newTitle);
-            updatePostStmt.setString(2, newContent);
-            updatePostStmt.setInt(3, postID);
-            updatePostStmt.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-
-    /**
      * Метод отправляет запрос к базе данных на удаление поста.
      * @param postID ID поста, который необходимо удалить.
      */
@@ -282,21 +239,6 @@ public class DataBaseHelper {
             createCommentStmt.setString(1, postID.toString());
             createCommentStmt.setString(2, commentContent);
             createCommentStmt.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-
-    /**
-     * Метод отправляет запрос к базе данных на редактирование комментария.
-     * @param newContent Новый текст комментария.
-     * @param commentID ID комментария, который необходимо отредактировать.
-     */
-    public static void updateComment(String newContent, Integer commentID) {
-        try{
-            updateCommentStmt.setString(1, newContent);
-            updateCommentStmt.setString(2, commentID.toString());
-            updateCommentStmt.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
         }

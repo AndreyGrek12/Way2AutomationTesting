@@ -41,7 +41,7 @@ public class PostTest {
 
     @Test
     public void updatePostTest() {
-        DataBaseHelper.updatePost(newTitle, newContent, DataBaseHelper.getPostID(title));
+        PostRequests.updatePost(newTitle, newContent, DataBaseHelper.getPostID(title));
         response = PostRequests.getPostInfo(DataBaseHelper.getPostID(newTitle));
         Assert.assertEquals(response.getStatusCode(),
                 200,

@@ -7,7 +7,6 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import requests.CommentRequests;
-import requests.PostRequests;
 
 import java.sql.SQLException;
 import java.util.UUID;
@@ -30,6 +29,7 @@ public class CommentTest {
     public void deletePost() {
         DataBaseHelper.deletePost(DataBaseHelper.getPostID(title));
     }
+
     @Test
     public void createCommentTest() {
         response = CommentRequests.getCommentInfo(DataBaseHelper.getCommentID(content));
@@ -44,7 +44,7 @@ public class CommentTest {
 
     @Test
     public void updateCommentTest() {
-        DataBaseHelper.updateComment(newContent, DataBaseHelper.getCommentID(content));
+        CommentRequests.updateComment(newContent, DataBaseHelper.getCommentID(content));
         response = CommentRequests.getCommentInfo(DataBaseHelper.getCommentID(newContent));
         Assert.assertEquals(response.getStatusCode(),
                 200,
