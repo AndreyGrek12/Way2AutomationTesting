@@ -1,4 +1,4 @@
-package tests.DataBaseTest;
+package tests.dataBaseTest;
 
 import helpers.DataBaseHelper;
 import io.restassured.response.Response;
@@ -20,7 +20,7 @@ public class PostTest {
 
     @BeforeMethod
     public void setup() throws SQLException {
-        DataBaseHelper.setSQLMode();
+        //DataBaseHelper.setSQLMode();
         DataBaseHelper.createPost(title,content);
     }
 
