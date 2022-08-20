@@ -56,7 +56,7 @@ public class PostTest {
     }
 
     @Test
-    public void deletePostTest () {
+    public void deletePostTest() {
         Integer id = DataBaseHelper.getPostID(title);
         DataBaseHelper.deletePost(DataBaseHelper.getPostID(title));
         response = PostRequests.getPostInfo(id);
