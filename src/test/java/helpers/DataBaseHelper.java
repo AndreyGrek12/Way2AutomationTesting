@@ -176,7 +176,7 @@ public class DataBaseHelper {
      * @param rs Результат запроса, в котором необходимо узнать сущствование строк.
      * @return возвращает истинность существования.
      */
-    public static Boolean isRawExist (ResultSet rs) {
+    public static Boolean isRawExist(ResultSet rs) {
         try {
             return rs.next();
         } catch (SQLException e) {
