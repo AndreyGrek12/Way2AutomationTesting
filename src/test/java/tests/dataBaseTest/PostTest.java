@@ -20,7 +20,6 @@ public class PostTest {
 
     @BeforeMethod
     public void setup() throws SQLException {
-        //DataBaseHelper.setSQLMode();
         DataBaseHelper.createPost(title,content);
     }
 

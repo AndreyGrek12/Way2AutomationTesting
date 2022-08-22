@@ -6,8 +6,6 @@ import static java.lang.Integer.valueOf;
 
 public class DataBaseHelper {
 
-    //private static final Connection connection = createConnection();
-
     //Запрос на получение поста по его ID
     private static final String preparedPostStatement = "Select * from wp_posts where ID = ?";
     //Запрос на создание поста
@@ -31,106 +29,11 @@ public class DataBaseHelper {
     //Запрос на получение ID комментария по его содержимому
     private static final String preparedGetCommentIDStatement = "select * from wp_comments where comment_content = ?";
 
-    /*
-    private static PreparedStatement getPostIDStatement = null;
-
-    static {
-        try {
-            getPostIDStatement = connection.prepareStatement(preparedGetPostIDStatement);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-
-    private static PreparedStatement getCommentIDStatement = null;
-
-    static {
-        try {
-            getCommentIDStatement = connection.prepareStatement(preparedGetCommentIDStatement);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-
-    private static PreparedStatement sQLModeStmt = null;
-
-    static {
-        try {
-            sQLModeStmt = connection.prepareStatement(preparedSetSQLModeStatement);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-
-    private static PreparedStatement postStmt = null;
-
-    static {
-        try {
-            postStmt = connection.prepareStatement(preparedPostStatement);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-
-    private static PreparedStatement createPostStmt = null;
-
-    static {
-        try {
-            createPostStmt = connection.prepareStatement(preparedCreatePostStatement);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-
-    private static PreparedStatement deletePostStmt = null;
-
-    static {
-        try {
-            deletePostStmt = connection.prepareStatement(preparedDeletePostStatement);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-
-    private static PreparedStatement commentStmt = null;
-
-    static {
-        try {
-            commentStmt = connection.prepareStatement(preparedCommentStatement);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-
-    private static PreparedStatement createCommentStmt = null;
-
-    static {
-        try {
-            createCommentStmt = connection.prepareStatement(preparedCreateCommentStatement);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-
-    private static PreparedStatement deleteCommentStmt = null;
-
-    static {
-        try {
-            deleteCommentStmt = connection.prepareStatement(preparedDeleteCommentStatement);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-     */
-
-    /*
-
     /**
      * Метод выполняет соединение с базой данных.
      * @return возвращает соединение.
      */
 
-    /*
     public static Connection createConnection() {
         try {
             return DriverManager
@@ -142,7 +45,6 @@ public class DataBaseHelper {
             return null;
         }
     }
-     */
 
     /**
      * Метод отправляет запрос к базе данных на получение информации о посте с заданным ID.
@@ -150,13 +52,8 @@ public class DataBaseHelper {
      * @return Возвращает результат запроса.
      */
     public static String selectDataFromPosts(Integer postID, String requiredColumn) {
-        try (Connection connection = DriverManager
-                .getConnection(PropertiesProvider.getProperty("dataBaseURI"),
-                        PropertiesProvider.getProperty("dataBaseLogin"),
-                        PropertiesProvider.getProperty("dataBasePassword"));
-            PreparedStatement postStmt = connection.prepareStatement(preparedPostStatement);
-            PreparedStatement sQLModeStmt = connection.prepareStatement(preparedSetSQLModeStatement)) {
-            //sQLModeStmt.executeUpdate();
+        try (Connection connection = createConnection();
+            PreparedStatement postStmt = connection.prepareStatement(preparedPostStatement)) {
             postStmt.setString(1, postID.toString());
             ResultSet rs = postStmt.executeQuery();
             rs.next();
@@ -173,13 +70,8 @@ public class DataBaseHelper {
      * @return Возвращает результат запроса.
      */
     public static String selectDataFromComments(Integer commentID, String requiredColumn) {
-        try (Connection connection = DriverManager
-                .getConnection(PropertiesProvider.getProperty("dataBaseURI"),
-                        PropertiesProvider.getProperty("dataBaseLogin"),
-                        PropertiesProvider.getProperty("dataBasePassword"));
-             PreparedStatement commentStmt = connection.prepareStatement(preparedCommentStatement);
-             PreparedStatement sQLModeStmt = connection.prepareStatement(preparedSetSQLModeStatement)) {
-            //sQLModeStmt.executeUpdate();
+        try (Connection connection = createConnection();
+             PreparedStatement commentStmt = connection.prepareStatement(preparedCommentStatement)) {
             commentStmt.setString(1, commentID.toString());
             ResultSet rs = commentStmt.executeQuery();
             rs.next();
@@ -191,57 +83,12 @@ public class DataBaseHelper {
     }
 
     /**
-     * Метод отправляет запрос к базе данных на получение информации о комментарии с заданным ID.
-     * @param commentID ID комментария, информацию о котором нобходимо получить.
-     * @return Возвращает результат запроса.
-     */
-    public static ResultSet selectDataFromComments(Integer commentID) {
-        try (Connection connection = DriverManager
-                .getConnection(PropertiesProvider.getProperty("dataBaseURI"),
-                        PropertiesProvider.getProperty("dataBaseLogin"),
-                        PropertiesProvider.getProperty("dataBasePassword"));
-             PreparedStatement commentStmt = connection.prepareStatement(preparedCommentStatement);
-             PreparedStatement sQLModeStmt = connection.prepareStatement(preparedSetSQLModeStatement)) {
-            //sQLModeStmt.executeUpdate();
-            commentStmt.setString(1, commentID.toString());
-            ResultSet rs = commentStmt.executeQuery();
-            rs.next();
-            return rs;
-        } catch (SQLException e) {
-            e.printStackTrace();
-            return null;
-        }
-    }
-
-    /*
-    /**
-     * Метод определяет наличие записей в результате запроса.
-     * @param rs Результат запроса, в котором необходимо узнать сущствование строк.
-     * @return возвращает истинность существования.
-     */
-
-    /*
-    public static Boolean isRawExist(ResultSet rs) {
-        try {
-            return rs.next();
-        } catch (SQLException e) {
-            e.printStackTrace();
-            return null;
-        }
-    }
-
-     */
-
-    /**
      * Метод отправляет запрос к базе данных на создание поста.
      * @param title Заголовок поста.
      * @param content Текст поста.
      */
     public static void createPost(String title, String content) {
-        try (Connection connection = DriverManager
-                .getConnection(PropertiesProvider.getProperty("dataBaseURI"),
-                        PropertiesProvider.getProperty("dataBaseLogin"),
-                        PropertiesProvider.getProperty("dataBasePassword"));
+        try (Connection connection = createConnection();
              PreparedStatement createPostStmt = connection.prepareStatement(preparedCreatePostStatement);
              PreparedStatement sQLModeStmt = connection.prepareStatement(preparedSetSQLModeStatement)) {
             sQLModeStmt.executeUpdate();
@@ -258,10 +105,7 @@ public class DataBaseHelper {
      * @param postID ID поста, который необходимо удалить.
      */
     public static void deletePost(Integer postID) {
-        try (Connection connection = DriverManager
-                .getConnection(PropertiesProvider.getProperty("dataBaseURI"),
-                        PropertiesProvider.getProperty("dataBaseLogin"),
-                        PropertiesProvider.getProperty("dataBasePassword"));
+        try (Connection connection = createConnection();
              PreparedStatement deletePostStmt = connection.prepareStatement(preparedDeletePostStatement);
              PreparedStatement sQLModeStmt = connection.prepareStatement(preparedSetSQLModeStatement)) {
             sQLModeStmt.executeUpdate();
@@ -277,10 +121,7 @@ public class DataBaseHelper {
      * @param postTitle Заголовок поста.
      */
     public static Integer getPostID(String postTitle) {
-        try (Connection connection = DriverManager
-                .getConnection(PropertiesProvider.getProperty("dataBaseURI"),
-                        PropertiesProvider.getProperty("dataBaseLogin"),
-                        PropertiesProvider.getProperty("dataBasePassword"));
+        try (Connection connection = createConnection();
              PreparedStatement getPostIDStatement = connection.prepareStatement(preparedGetPostIDStatement);
              PreparedStatement sQLModeStmt = connection.prepareStatement(preparedSetSQLModeStatement)) {
             sQLModeStmt.executeUpdate();
@@ -300,10 +141,7 @@ public class DataBaseHelper {
      * @param commentContent Текст комментария.
      */
     public static void createComment(Integer postID, String commentContent) {
-        try (Connection connection = DriverManager
-                .getConnection(PropertiesProvider.getProperty("dataBaseURI"),
-                        PropertiesProvider.getProperty("dataBaseLogin"),
-                        PropertiesProvider.getProperty("dataBasePassword"));
+        try (Connection connection = createConnection();
              PreparedStatement createCommentStmt = connection.prepareStatement(preparedCreateCommentStatement);
              PreparedStatement sQLModeStmt = connection.prepareStatement(preparedSetSQLModeStatement)) {
             sQLModeStmt.executeUpdate();
@@ -320,10 +158,7 @@ public class DataBaseHelper {
      * @param commentID ID комментария, который необходимо удалить.
      */
     public static void deleteComment(Integer commentID) {
-        try (Connection connection = DriverManager
-                .getConnection(PropertiesProvider.getProperty("dataBaseURI"),
-                        PropertiesProvider.getProperty("dataBaseLogin"),
-                        PropertiesProvider.getProperty("dataBasePassword"));
+        try (Connection connection = createConnection();
              PreparedStatement deleteCommentStmt = connection.prepareStatement(preparedDeleteCommentStatement);
              PreparedStatement sQLModeStmt = connection.prepareStatement(preparedSetSQLModeStatement)) {
             sQLModeStmt.executeUpdate();
@@ -339,10 +174,7 @@ public class DataBaseHelper {
      * @param commentContent Содержимое комментария.
      */
     public static Integer getCommentID(String commentContent) {
-        try (Connection connection = DriverManager
-                .getConnection(PropertiesProvider.getProperty("dataBaseURI"),
-                        PropertiesProvider.getProperty("dataBaseLogin"),
-                        PropertiesProvider.getProperty("dataBasePassword"));
+        try (Connection connection = createConnection();
              PreparedStatement getCommentIDStatement = connection.prepareStatement(preparedGetCommentIDStatement);
              PreparedStatement sQLModeStmt = connection.prepareStatement(preparedSetSQLModeStatement)) {
             sQLModeStmt.executeUpdate();
@@ -355,19 +187,4 @@ public class DataBaseHelper {
             return null;
         }
     }
-
-    /*
-    public static void setSQLMode() {
-        try (Connection connection = DriverManager
-                .getConnection(PropertiesProvider.getProperty("dataBaseURI"),
-                        PropertiesProvider.getProperty("dataBaseLogin"),
-                        PropertiesProvider.getProperty("dataBasePassword"));
-             PreparedStatement sQLModeStmt = connection.prepareStatement(preparedSetSQLModeStatement)) {
-            sQLModeStmt.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-
-     */
 }

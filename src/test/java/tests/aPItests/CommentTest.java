@@ -21,7 +21,6 @@ public class CommentTest {
 
     @BeforeMethod
     public void setup() throws SQLException {
-        //DataBaseHelper.createConnection();
         createPostResponse = PostRequests.createPost(title,content);
         createCommentResponse = CommentRequests.createComment(content,
                 createPostResponse.jsonPath().getInt("id"));
@@ -44,7 +43,7 @@ public class CommentTest {
     }
 
     @Test
-    public void updateCommentTest () {
+    public void updateCommentTest() {
         Response response = CommentRequests.updateComment(newContent,createCommentResponse.jsonPath().getInt("id"));
         Assert.assertEquals(response.getStatusCode(),
                 200,
@@ -56,7 +55,7 @@ public class CommentTest {
     }
 
     @Test
-    public void deleteCommentTest () {
+    public void deleteCommentTest() {
         Response response = CommentRequests.deleteComment(createCommentResponse.jsonPath().getInt("id"));
         Assert.assertEquals(response.getStatusCode(),
                 200,

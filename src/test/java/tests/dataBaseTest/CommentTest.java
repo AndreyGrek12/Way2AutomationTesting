@@ -20,7 +20,6 @@ public class CommentTest {
 
     @BeforeMethod
     public void setup() throws SQLException {
-        //DataBaseHelper.setSQLMode();
         DataBaseHelper.createPost(title,content);
         DataBaseHelper.createComment(DataBaseHelper.getPostID(title), content);
     }
