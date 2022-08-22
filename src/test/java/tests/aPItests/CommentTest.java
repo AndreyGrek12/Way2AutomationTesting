@@ -21,7 +21,6 @@ public class CommentTest {
 
     @BeforeMethod
     public void setup() throws SQLException {
-        DataBaseHelper.createConnection();
         createPostResponse = PostRequests.createPost(title,content);
         createCommentResponse = CommentRequests.createComment(content,
                 createPostResponse.jsonPath().getInt("id"));
@@ -33,36 +32,37 @@ public class CommentTest {
     }
 
     @Test
-    public void createCommentTest() throws SQLException {
+    public void createCommentTest() {
         Assert.assertEquals(createCommentResponse.getStatusCode(),
                 201,
                 "Код ответа на запрос не совпадает");
-        Assert.assertEquals(DataBaseHelper.selectDataFromComments(createCommentResponse.jsonPath().getInt("id"))
-                        .getString("comment_content"),
+        Assert.assertEquals(DataBaseHelper.selectDataFromComments(createCommentResponse.jsonPath().getInt("id"),
+                        "comment_content"),
                 content,
                 "Контентная часть не совпадает");
     }
 
     @Test
-    public void updateCommentTest () throws SQLException {
+    public void updateCommentTest() {
         Response response = CommentRequests.updateComment(newContent,createCommentResponse.jsonPath().getInt("id"));
         Assert.assertEquals(response.getStatusCode(),
                 200,
                 "Код ответа на запрос не совпадает");
-        Assert.assertEquals(DataBaseHelper.selectDataFromComments(createCommentResponse.jsonPath().getInt("id"))
-                        .getString("comment_content"),
+        Assert.assertEquals(DataBaseHelper.selectDataFromComments(createCommentResponse.jsonPath().getInt("id"),
+                        "comment_content"),
                 newContent,
                 "Контентная часть не совпадает");
     }
 
     @Test
-    public void deleteCommentTest () {
+    public void deleteCommentTest() {
         Response response = CommentRequests.deleteComment(createCommentResponse.jsonPath().getInt("id"));
         Assert.assertEquals(response.getStatusCode(),
                 200,
                 "Код ответа на запрос не совпадает");
-        Assert.assertFalse(DataBaseHelper.isRawExist(
-                DataBaseHelper.selectDataFromComments(createCommentResponse.jsonPath().getInt("id"))),
+        Assert.assertEquals(DataBaseHelper.selectDataFromComments(createCommentResponse.jsonPath().getInt("id"),
+                "comment_approved"),
+                "trash",
                 "Комментарий не удален");
     }
 }
