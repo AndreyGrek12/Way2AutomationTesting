@@ -1,8 +1,10 @@
 package tests.uItests;
 
 import com.codeborne.selenide.Condition;
+import com.codeborne.selenide.Selenide;
 import helpers.PropertiesProvider;
 import io.qameta.allure.*;
+import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import pages.BasicAuthPage;
@@ -27,5 +29,10 @@ public class BasicAuthTest {
 
         basicAuthPage.clickOnDisplayImageButton();
         $("#downloadImg").shouldBe(Condition.visible);
+    }
+
+    @AfterMethod
+    public void closeDriver() {
+        Selenide.closeWebDriver();
     }
 }
