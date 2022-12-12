@@ -7,7 +7,7 @@
 
     <test verbose="2" preserve-order="true" name="All Tests">
         <packages>
-            <package name="tests.aPItests" />
+            <package name="tests.aPItests.CommentTest" />
         </packages>
     </test>
 </suite>
