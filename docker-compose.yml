@@ -27,3 +27,4 @@ services:
     links:
       - selenoid
     command: mvn clean test
+    docker stop $(docker ps -a -q)
