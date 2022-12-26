@@ -2,6 +2,7 @@ package helpers;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.ie.InternetExplorerDriver;
 import org.openqa.selenium.ie.InternetExplorerOptions;
@@ -10,6 +11,8 @@ import org.openqa.selenium.remote.RemoteWebDriver;
 
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.HashMap;
+import java.util.Map;
 
 public class DriverFactory {
 
@@ -46,6 +49,10 @@ public class DriverFactory {
         if (browserName.equals("ie")) {
             capabilities.setCapability("ignoreZoomSetting", true);
             capabilities.setCapability("introduceFlakinessByIgnoringSecurityDomains", true);
+        } else if (browserName.equals("chrome")) {
+            Map<String, Boolean> options = new HashMap<>();
+            options.put("enableVNC", true);
+            capabilities.setCapability("selenoid:options", options);
         }
         return new RemoteWebDriver(new URL(PropertiesProvider.getProperty("localhost")), capabilities);
     }

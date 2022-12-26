@@ -6,8 +6,9 @@
     </listeners>
 
     <test verbose="2" preserve-order="true" name="All Tests">
-        <packages>
-            <package name="tests.aPItests" />
-        </packages>
+        <classes>
+	    <class name="tests.uItests.DragNDropTest">
+	    </class>
+        </classes>
     </test>
 </suite>

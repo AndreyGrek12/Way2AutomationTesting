@@ -2,6 +2,7 @@ package tests.uItests;
 
 import helpers.PropertiesProvider;
 import io.qameta.allure.*;
+import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
