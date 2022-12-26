@@ -26,4 +26,4 @@ services:
     working_dir: /tests
     links:
       - selenoid
-    command: mvn clean test && docker stop $(docker ps -a -q)
+    command: mvn clean test
